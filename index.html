@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- /BEGIN/ ENABLE WEB APP CAPABLE -->
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="icon" type="image/png" href="">
+		<link href="" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
+		<!-- /END/ ENABLE WEB APP CAPABLE -->
+		<title>EASY CAR CHECK (v.3.0)</title>
+		<meta name="description" content="Easily check a car's mot status and history record before buying a used car" />
+		<meta name="keywords" content="tabs, inspiration, web design, css, modern, effects, svg" />
+		<meta name="author" content="Dean Ha" />
+		<link rel="shortcut icon" href="../favicon.ico">
+		<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+		<link rel="stylesheet" type="text/css" href="css/demo.css" />
+		<link rel="stylesheet" type="text/css" href="css/tabs.css" />
+		<link rel="stylesheet" type="text/css" href="css/tabstyles.css" />
+  		<style>
+			.outside {
+			    width: 200px;
+			    height: 200px;
+			    background-color: #EEE; /*to make it visible*/
+			}
+			.inside {
+			    position: absolute;
+			    bottom: 0px;
+			    background-color: #333
+			}
+			.top {
+			    position: absolute;
+			    top: 0px;
+			}
+			
+			.navbottom {
+			    position: absolute;
+			    bottom: 0px;
+			}
+			iframe {
+		     display:none;
+			}
+
+			.header {
+		    margin: auto;
+    		width: 100%;
+    		height: 60px;
+		    background-color:black;
+		    color:white;
+		    text-align:left;
+		    padding:15px;
+			}
+
+			html, body {
+				height: 100%
+			}
+		</style>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  		<script src="js/modernizr.custom.js"></script>
+		<script type="text/javascript">
+		// TOGGLES PANEL MOT-Status																	
+			$(document).ready(function(){
+		    $("#msBtn").click(function(){
+		    	$("#motHistory").hide();
+		        $("#motStatus").show();
+			  });
+			});
+
+		// TOGGLES PANEL MOT-History
+			$(document).ready(function(){
+		    $("#mhBtn").click(function(){
+		    	$("#motStatus").hide();
+		        $("#motHistory").show();
+			  });
+			});
+
+		// Hides iframes when clicked onto other tabs
+			$(document).ready(function(){
+		    $("#hmBtn,#upBtn,#setBtn").click(function(){
+		        $("#motHistory").hide();
+		        $("#motStatus").hide();
+			  });
+			});
+		</script>
+		<script>
+			window.addEventListener('load', function() {
+			  var preventPullToRefreshCheckbox = document.getElementById('preventPullToRefresh');
+			  var preventOverscrollGlowCheckbox = document.getElementById("preventOverscrollGlow");
+			  var preventScrollCheckbox = document.getElementById("preventScroll");
+
+			  var maybePreventPullToRefresh = true;
+			  var lastTouchY = 0;
+			  var touchstartHandler = function(e) {
+			    if (e.touches.length != 1) return;
+			    lastTouchY = e.touches[0].clientY;
+			    // Pull-to-refresh will only trigger if the scroll begins when the
+			    // document's Y offset is zero.
+			    maybePreventPullToRefresh =
+			        preventPullToRefreshCheckbox.checked=true &&
+			        window.pageYOffset == 0;
+			  }
+
+			  var touchmoveHandler = function(e) {
+			    var touchY = e.touches[0].clientY;
+			    var touchYDelta = touchY - lastTouchY;
+			    lastTouchY = touchY;
+
+			    if (maybePreventPullToRefresh) {
+			      // To suppress pull-to-refresh it is sufficient to preventDefault the
+			      // first overscrolling touchmove.
+			      maybePreventPullToRefresh = false;
+			      if (touchYDelta > 0) {
+			        e.preventDefault();
+			        return;
+			      }
+			    }
+			  }
+
+			  document.addEventListener('touchstart', touchstartHandler, false);
+			  document.addEventListener('touchmove', touchmoveHandler, false);
+			});
+		</script>
+	</head>
+	<body>
+		<input id="preventPullToRefresh" type="hidden"></input><!-- Hidden input field to set preventPullToRefresh to TRUE -->
+		<div class="top header" style="font-size:24px; font-weight: bold;">EASY CAR CHECK (v.3.0)</div>
+		<iframe min-height: 90% id="motStatus" src="https://www.vehicleenquiry.service.gov.uk/" style=" width:100%; height:95%" frameborder="0">
+			<p>Your browser does not support iframes.</p>
+		</iframe>
+		<iframe min-height: 90% id="motHistory" src="https://www.check-mot.service.gov.uk/?_ga=1.900916.407876837.1450167936" style=" width:100%; height:95%" frameborder="0">
+			<p>Your browser does not support iframes.</p>
+		</iframe>
+		<div class="container">		
+
+
+				<div class="tabs tabs-style-linemove navbottom">
+					<div class="content-wrap">
+						<section id="home"><p>Home</p></section>	
+						<section></section>
+						<section></section>
+						<section id="#section-linemove-4"><p>Upload</p>	</section>
+						<section id="#section-linemove-5"><p>Settings</p></section>
+					</div><!-- /content -->
+					<nav>
+						<ul>
+							<li><a href="#home" class="icon icon-home" id="hmBtn" data-toggle="button" aria-pressed="true" autocomplete="off"><span>Home</span></a></li>
+							<li><a href="#motStatus" class="icon icon-box" id="msBtn" data-toggle="button" aria-pressed="true" autocomplete="off"><span>MOT Status</span></a></li>
+							<li><a href="#motHistory" class="icon icon-display" class="icon icon-box" id="mhBtn" data-toggle="button" aria-pressed="true" autocomplete="off"><span>MOT History</span></a></li>
+							<li><a href="#section-linemove-4" class="icon icon-upload" id="upBtn" data-toggle="button" aria-pressed="true" autocomplete="off"><span>Upload</span></a></li>
+							<li><a href="#section-linemove-5" class="icon icon-tools" id="setBtn" data-toggle="button" aria-pressed="true" autocomplete="off"><span>Settings</span></a></li>
+						</ul>
+					</nav>
+				</div><!-- /tabs -->
+		</div><!-- /container -->
+		<script src="js/cbpFWTabs.js"></script>
+		<script>
+			(function() {
+
+				[].slice.call( document.querySelectorAll( '.tabs' ) ).forEach( function( el ) {
+					new CBPFWTabs( el );
+				});
+
+			})();
+		</script>
+	</body>
+</html>
