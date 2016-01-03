@@ -1,13 +1,21 @@
-// DISABLE PULL-TO-REFESH
-// To use you need to have a hidden input field. copy this somewhere on the body of your html.
-//
-// <input id="preventPullToRefresh" type="hidden"></input>
-//
+/**
+ * disable-pull-to-refresh.js v1.0.0
+ * http://www.deanha.com
+ *
+ * Adapted from
+ * http://www.deanha.com
+ */
+/******************************************************************************************************* 
+ * ## Instructions
+ *
+ * link the mobile-pull-to-refresh.js sscript in your your html <head>
+ * to use this script you need to copy and paste the hidden input field onto the body of your html file.
+ * 
+ * <input id="disable-pull-to-refresh" type="hidden"></input>
+ */
 
 window.addEventListener('load', function() {
-  var preventPullToRefreshCheckbox = document.getElementById('preventPullToRefresh');
-  var preventOverscrollGlowCheckbox = document.getElementById("preventOverscrollGlow");
-  var preventScrollCheckbox = document.getElementById("preventScroll");
+  var preventPullToRefreshCheckbox = document.getElementById('disable-pull-to-refresh');
 
   var maybePreventPullToRefresh = true;
   var lastTouchY = 0;
@@ -17,8 +25,8 @@ window.addEventListener('load', function() {
     // Pull-to-refresh will only trigger if the scroll begins when the
     // document's Y offset is zero.
     maybePreventPullToRefresh =
-        preventPullToRefreshCheckbox.checked=true &&
-        window.pageYOffset == 0;
+        preventPullToRefreshCheckbox.checked=true &&  // checked=true => disables pull-to-refresh
+        window.pageYOffset == 0;                      // checked=false => enables pull-to-refresh
   }
 
   var touchmoveHandler = function(e) {

@@ -12,11 +12,11 @@
 		<!-- /END/ ENABLE WEB APP CAPABLE -->
 		<title>EASY CAR CHECK (v.3.0)</title>
 		<meta name="description" content="Easily check a car's mot status and history record before buying a used car" />
-		<meta name="keywords" content="tabs, inspiration, web design, css, modern, effects, svg" />
+		<meta name="keywords" content="car check, mot, mot history, dvla, car buying" />
 		<meta name="author" content="Dean Ha" />
-		<link rel="shortcut icon" href="../favicon.ico">
+		<link rel="shortcut icon" href="img/favicon.ico">
 		<link rel="stylesheet" type="text/css" href="css/normalize.css" />
-		<link rel="stylesheet" type="text/css" href="css/demo.css" />
+		<link rel="stylesheet" type="text/css" href="css/main.css" />
 		<link rel="stylesheet" type="text/css" href="css/tabs.css" />
 		<link rel="stylesheet" type="text/css" href="css/tabstyles.css" />
   		<style>
@@ -30,14 +30,14 @@
 			    bottom: 0px;
 			    background-color: #333
 			}
-			.top {
-			    position: absolute;
-			    top: 0px;
-			}
 			
 			.navbottom {
 			    position: absolute;
 			    bottom: 0px;
+			}
+			.navtop {
+			    position: absolute;
+			    top: 0px;
 			}
 			iframe {
 		     display:none;
@@ -51,6 +51,8 @@
 		    color:white;
 		    text-align:left;
 		    padding:15px;
+		    position: absolute;
+			top: 0px;
 			}
 
 			html, body {
@@ -59,7 +61,8 @@
 		</style>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   		<script src="js/modernizr.custom.js"></script>
-		<script type="text/javascript">
+  		<script src="js/modernizr.custom.js"></script>
+		<script src="js/disable-pull-to-refresh.js">
 		// TOGGLES PANEL MOT-Status																	
 			$(document).ready(function(){
 		    $("#msBtn").click(function(){
@@ -84,48 +87,10 @@
 			  });
 			});
 		</script>
-		<script>
-			window.addEventListener('load', function() {
-			  var preventPullToRefreshCheckbox = document.getElementById('preventPullToRefresh');
-			  var preventOverscrollGlowCheckbox = document.getElementById("preventOverscrollGlow");
-			  var preventScrollCheckbox = document.getElementById("preventScroll");
-
-			  var maybePreventPullToRefresh = true;
-			  var lastTouchY = 0;
-			  var touchstartHandler = function(e) {
-			    if (e.touches.length != 1) return;
-			    lastTouchY = e.touches[0].clientY;
-			    // Pull-to-refresh will only trigger if the scroll begins when the
-			    // document's Y offset is zero.
-			    maybePreventPullToRefresh =
-			        preventPullToRefreshCheckbox.checked=true &&
-			        window.pageYOffset == 0;
-			  }
-
-			  var touchmoveHandler = function(e) {
-			    var touchY = e.touches[0].clientY;
-			    var touchYDelta = touchY - lastTouchY;
-			    lastTouchY = touchY;
-
-			    if (maybePreventPullToRefresh) {
-			      // To suppress pull-to-refresh it is sufficient to preventDefault the
-			      // first overscrolling touchmove.
-			      maybePreventPullToRefresh = false;
-			      if (touchYDelta > 0) {
-			        e.preventDefault();
-			        return;
-			      }
-			    }
-			  }
-
-			  document.addEventListener('touchstart', touchstartHandler, false);
-			  document.addEventListener('touchmove', touchmoveHandler, false);
-			});
-		</script>
 	</head>
 	<body>
-		<input id="preventPullToRefresh" type="hidden"></input><!-- Hidden input field to set preventPullToRefresh to TRUE -->
-		<div class="top header" style="font-size:24px; font-weight: bold;">EASY CAR CHECK (v.3.0)</div>
+		<input id="disable-pull-to-refresh" type="hidden"></input>
+		<div class="header" style="font-size:24px; font-weight: bold;">EASY CAR CHECK (v.3.0)</div>
 		<iframe min-height: 90% id="motStatus" src="https://www.vehicleenquiry.service.gov.uk/" style=" width:100%; height:95%" frameborder="0">
 			<p>Your browser does not support iframes.</p>
 		</iframe>
